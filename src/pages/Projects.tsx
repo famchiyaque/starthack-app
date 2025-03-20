@@ -5,24 +5,29 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Clock, MessageCircle, Bell, Plus } from 'lucide-react';
 import AnimatedTransition from '@/components/common/AnimatedTransition';
+import { useAuth } from "../context/AuthContext";
+import axios from 'axios'
 
 const Projects = () => {
+  const { name, userType } = useAuth();
   const [projects, setProjects] = useState([])
+  console.log("name from auth: ", name)
 
   useEffect(() => {
     console.log("about to call backend api for projects");
 
-    fetch('/api/get-projects')
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        console.log("returned data: ", data);
-        setProjects(data);
-      })
-      .catch(error => console.error("Fetch error:", error));
-}, []);
+    axios.get('/api/get-projects', {
+      params: {
+          name: name
+      }
+    })
+    .then(res => {
+        console.log("Returned data:", res.data);
+        setProjects(res.data);
+    })
+    .catch(error => console.error("Fetch error:", error));
+    
+    }, []);
 
 
   return (
@@ -41,8 +46,8 @@ const Projects = () => {
             <Link to={`/company/projects/${project.id}`} className="block group">
               <Card className="h-full transition-all duration-300 hover:shadow-md hover:border-primary/50">
                 <CardHeader className="pb-2">
-                  <CardTitle>{project.company_name}</CardTitle>
-                  <CardDescription className="line-clamp-2">{project.initiative}</CardDescription>
+                  <CardTitle>{project.initiative}</CardTitle>
+                  <CardDescription className="line-clamp-2">{project.call_to_action}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="w-full h-2 bg-muted rounded-full overflow-hidden">

@@ -1,12 +1,13 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import { PowerOffIcon } from 'lucide-react';
 
 dotenv.config(); // Load environment variables
 
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-console.log('DB_NAME:', process.env.DB_NAME);
+// console.log('DB_HOST:', process.env.DB_HOST);
+// console.log('DB_USER:', process.env.DB_USER);
+// console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+// console.log('DB_NAME:', process.env.DB_NAME);
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -19,17 +20,32 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-async function getProjects() {
+async function getProjects(name) {
     try {
         const [projects] = await pool.execute(`
-            SELECT * FROM Projects    
-        `)
+            SELECT * FROM Projects   
+            WHERE company_name = ? 
+        `, [name])
 
-        console.log("result of getprojects query: ", projects)
+        // console.log("result of getprojects query: ", projects)
         return projects
     } catch (error) {
         console.error(error)
     }
+}
+
+async function signIn(name) {
+  try {
+    const [result] = await pool.execute(`
+      SELECT * FROM Users
+      WHERE name = ?
+    `, [name])
+
+    console.log("result of siging in ", result)
+    return result
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 // Function to execute queries
@@ -45,4 +61,4 @@ async function get(sql, params) {
 
 // export default pool;
 
-export { getProjects, get };
+export { getProjects, signIn };

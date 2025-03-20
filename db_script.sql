@@ -63,6 +63,11 @@ INSERT INTO users (name, email, password, rol) VALUES
 ('Virgin Unite', 'contact@virginunite.com', 'password123', 'company');
 
 
+INSERT INTO Users (name, email, password, rol)
+VALUES ('sammy johnson', 'sam@gmail.com', 'sam123', 'individual'),
+('voyager user', 'voyageruser@gmail.com', 'voyager', 'individual'),
+('media user', 'mediauser@gmail.com', 'media', 'individual');
+
 INSERT INTO projects (company_id, company_name, initiative, challenge, progress, call_to_action, links) VALUES
 (7, 'Virgin Atlantic', 'Youngest, Cleanest Fleet in the Sky', 'The time for action against climate change is now. Virgin Atlantic are on a mission to achieve net-zero by 2050.', 'Virgin Atlantic is working to accelerate the development of sustainable fuels. On November 28th, we made history with Flight100— becoming the first commercial airline to fly across the Atlantic on 100% SAF - marking a key milestone on the path to decarbonising aviation.', '- Stay informed - Sign up for updates on ways you can get involved in making a difference', 'https://corporate.virginatlantic.com/gb/en/business-for-good/planet.html https://corporate.virginatlantic.com/gb/en/business-for-good/planet/fuel/flight100.html https://corporate.virginatlantic.com/gb/en/business-for-good/planet/fuel.html'),
 -- (2, 'Virgin Atlantic & Virgin Unite', 'Protecting our Planet', 'Contrails, aircraft condensation trails, heighten the effect of global warming, which may account for more than half (57%) of the entire climate impact of aviation.', 'Virgin Atlantic, Virgin Unite, and Flight100 have also joined forces with RMI to establish the Contrail Impact Task Force, aiming to address the environmental impact of aircraft contrails.', '- Stay informed - Donate to RMI', 'https://corporate.virginatlantic.com/gb/en/business-for-good/planet/fleet.html https://www.virgin.com/virgin-unite/latest/flight100-virgin-atlantic-and-rmi-test-new-ways-to-reduce-aviations-climate'),

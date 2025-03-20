@@ -30,7 +30,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         <div className="flex-1 overflow-auto">
           <div className="sticky top-0 z-10 flex h-16 items-center border-b bg-background px-4">
             <SidebarTrigger />
-            <div className="ml-4 font-semibold">Orange Platform</div>
+            <div className="ml-4 font-semibold">Volty</div>
           </div>
           <main className="container mx-auto p-4">{children}</main>
         </div>
@@ -45,22 +45,22 @@ const AppSidebar = () => {
   const menuItems = [
     {
       title: 'Projects',
-      path: '/companies/projects',
+      path: '/company/projects',
       icon: LayoutDashboard,
     },
     {
       title: 'Feed',
-      path: '/companies/feed',
+      path: '/company/feed',
       icon: Rss,
     },
     {
       title: 'Collaborators',
-      path: '/companies/collaborators',
+      path: '/company/collaborators',
       icon: Users,
     },
     {
       title: 'Profile',
-      path: '/companies/profile',
+      path: '/company/profile',
       icon: User,
     },
   ];

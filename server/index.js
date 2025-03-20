@@ -6,7 +6,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { getProjects } from './db.js';
+import { getProjects, signIn } from './db.js';
 
 const app = express();
 const PORT = process.env.PORT || 5555;
@@ -18,9 +18,23 @@ app.use(express.static("build"))
 
 
 app.get("/api/get-projects", async (req, res) => {
-    try {
-        const result = await getProjects()
+    const name = req.query.name
 
+    console.log("params name: ", name)
+    try {
+        const result = await getProjects(name)
+
+        res.status(200).json(result)
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+app.get("/api/sign-in", async (req, res) => {
+    const name = req.query.name
+    console.log("got to sign-in api: ", name)
+    try {
+        const result = await signIn(name)
         res.status(200).json(result)
     } catch (error) {
         console.error(error)
