@@ -1,235 +1,118 @@
 
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ProfileHeader from '@/components/profile/ProfileHeader';
-import ProjectCard, { Project } from '@/components/projects/ProjectCard';
-import AnimatedTransition from '@/components/common/AnimatedTransition';
+import React from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Activity, Grid, LineChart, List, User as UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-// Mock data for projects in profile
-const mockProjects: Project[] = [
-  {
-    id: '1',
-    title: 'Eco-friendly Packaging Design',
-    description: 'Developing sustainable packaging solutions for consumer products that minimize environmental impact.',
-    image: 'https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGFja2FnaW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    company: {
-      id: '101',
-      name: 'Green Innovations',
-      avatar: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y29tcGFueXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    status: 'in_progress',
-    category: 'Design',
-    likes: 24,
-    comments: 8,
-    updatedAt: new Date('2023-06-15'),
-    progress: 65,
-  },
-  {
-    id: '2',
-    title: 'Mobile Banking App Redesign',
-    description: 'Revamping the user experience and interface of our mobile banking application for better accessibility and security.',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fG1vYmlsZSUyMGFwcHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    company: {
-      id: '102',
-      name: 'FinTech Solutions',
-      avatar: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFua3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    status: 'planning',
-    category: 'Technology',
-    likes: 12,
-    comments: 3,
-    updatedAt: new Date('2023-06-10'),
-    progress: 15,
-  },
-];
+import { Badge } from '@/components/ui/badge';
+import { Edit, MapPin, Link2, Calendar, UserCheck } from 'lucide-react';
+import AnimatedTransition from '@/components/common/AnimatedTransition';
 
 const Profile = () => {
-  const { user, isAuthenticated } = useAuth();
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  
-  // Redirect if not authenticated
-  if (!isAuthenticated || !user) {
-    return <Navigate to="/auth/login" />;
-  }
-
-  const isCompany = user.type === 'company';
-  const isOwnProfile = true; // In a real app, this would be determined by comparing user IDs
+  // Mock user data
+  const user = {
+    id: '1',
+    name: 'Jane Cooper',
+    avatar: '',
+    role: 'UX Designer',
+    location: 'San Francisco, CA',
+    website: 'janecooper.design',
+    joinDate: new Date('2022-05-10'),
+    bio: 'UX Designer with a passion for creating intuitive and engaging user experiences. Specializing in mobile app interfaces and design systems.',
+    connections: 142,
+    projects: 24,
+    skills: ['UI/UX Design', 'Wireframing', 'Prototyping', 'User Research', 'Figma', 'Adobe XD'],
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-1 pt-16">
-        <ProfileHeader user={user} isOwnProfile={isOwnProfile} />
-        
-        <div className="container px-4 md:px-6 py-8">
-          <AnimatedTransition type="fade">
-            <Tabs defaultValue="projects" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <TabsList>
-                  <TabsTrigger value="projects" className="flex items-center gap-2">
-                    <Grid className="h-4 w-4" />
-                    {isCompany ? 'Projects' : 'Followed Projects'}
-                  </TabsTrigger>
-                  <TabsTrigger value="activity" className="flex items-center gap-2">
-                    <Activity className="h-4 w-4" />
-                    Activity
-                  </TabsTrigger>
-                  {isCompany && (
-                    <TabsTrigger value="analytics" className="flex items-center gap-2">
-                      <LineChart className="h-4 w-4" />
-                      Analytics
-                    </TabsTrigger>
-                  )}
-                  <TabsTrigger value="about" className="flex items-center gap-2">
-                    <UserIcon className="h-4 w-4" />
-                    About
-                  </TabsTrigger>
-                </TabsList>
+    <div className="space-y-6">
+      <AnimatedTransition type="fade">
+        <Card>
+          <CardHeader className="relative pb-0">
+            <div className="absolute right-6 top-6">
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Edit className="h-4 w-4" />
+                <span>Edit Profile</span>
+              </Button>
+            </div>
+            
+            <div className="flex flex-col items-center sm:flex-row sm:items-start sm:gap-6">
+              <Avatar className="h-24 w-24">
+                <AvatarImage src={user.avatar} />
+                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              
+              <div className="mt-4 text-center sm:mt-0 sm:text-left">
+                <h1 className="text-2xl font-bold">{user.name}</h1>
+                <p className="text-muted-foreground">{user.role}</p>
                 
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant={viewMode === 'grid' ? 'default' : 'outline'}
-                    size="icon"
-                    onClick={() => setViewMode('grid')}
-                    className="h-8 w-8"
-                  >
-                    <Grid className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant={viewMode === 'list' ? 'default' : 'outline'}
-                    size="icon"
-                    onClick={() => setViewMode('list')}
-                    className="h-8 w-8"
-                  >
-                    <List className="h-4 w-4" />
-                  </Button>
+                <div className="mt-2 flex flex-wrap gap-y-2 gap-x-4 text-sm justify-center sm:justify-start">
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <MapPin className="h-4 w-4" />
+                    <span>{user.location}</span>
+                  </div>
+                  
+                  {user.website && (
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Link2 className="h-4 w-4" />
+                      <a href={`https://${user.website}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                        {user.website}
+                      </a>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <Calendar className="h-4 w-4" />
+                    <span>Joined {user.joinDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                  </div>
+                </div>
+                
+                <div className="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
+                  <div className="flex items-center gap-1">
+                    <UserCheck className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-medium">{user.connections} connections</span>
+                  </div>
                 </div>
               </div>
+            </div>
+          </CardHeader>
+          
+          <CardContent className="mt-6">
+            <Tabs defaultValue="about">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="about">About</TabsTrigger>
+                <TabsTrigger value="skills">Skills</TabsTrigger>
+                <TabsTrigger value="projects">Projects</TabsTrigger>
+              </TabsList>
               
-              <TabsContent value="projects" className="space-y-6">
-                {isCompany && isOwnProfile && (
-                  <div className="flex justify-end">
-                    <Button asChild>
-                      <a href="/dashboard">Manage Projects</a>
-                    </Button>
-                  </div>
-                )}
-                
-                {mockProjects.length === 0 ? (
-                  <div className="rounded-lg border border-dashed p-8 text-center">
-                    <h3 className="text-lg font-medium mb-2">
-                      {isCompany 
-                        ? 'No projects yet' 
-                        : 'Not following any projects yet'}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      {isCompany 
-                        ? 'Create your first project to start tracking progress' 
-                        : 'Follow projects you are interested in to see them here'}
-                    </p>
-                    <Button asChild>
-                      <a href={isCompany ? '/dashboard' : '/feed'}>
-                        {isCompany ? 'Create Project' : 'Explore Projects'}
-                      </a>
-                    </Button>
-                  </div>
-                ) : (
-                  <div className={viewMode === 'grid' 
-                    ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    : "space-y-6"
-                  }>
-                    {mockProjects.map((project, index) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        delay={index * 100}
-                        compact={viewMode === 'list'}
-                        className={viewMode === 'list' ? "flex flex-col md:flex-row" : ""}
-                      />
-                    ))}
-                  </div>
-                )}
+              <TabsContent value="about" className="mt-4">
+                <h3 className="text-lg font-medium mb-2">Bio</h3>
+                <p className="text-muted-foreground">{user.bio}</p>
               </TabsContent>
               
-              <TabsContent value="activity">
-                <div className="rounded-lg border p-8 text-center">
-                  <h3 className="text-lg font-medium mb-2">Activity Feed</h3>
-                  <p className="text-muted-foreground">
-                    Track your recent interactions and updates
-                  </p>
+              <TabsContent value="skills" className="mt-4">
+                <h3 className="text-lg font-medium mb-3">Skills & Expertise</h3>
+                <div className="flex flex-wrap gap-2">
+                  {user.skills.map((skill) => (
+                    <Badge key={skill} variant="secondary">
+                      {skill}
+                    </Badge>
+                  ))}
                 </div>
               </TabsContent>
               
-              {isCompany && (
-                <TabsContent value="analytics">
-                  <div className="rounded-lg border p-8 text-center">
-                    <h3 className="text-lg font-medium mb-2">Analytics Dashboard</h3>
-                    <p className="text-muted-foreground">
-                      View insights about your projects and engagement metrics
-                    </p>
-                  </div>
-                </TabsContent>
-              )}
-              
-              <TabsContent value="about">
-                <div className="rounded-lg border p-6">
-                  <h3 className="text-lg font-medium mb-4">About</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-sm font-medium text-muted-foreground mb-1">Bio</h4>
-                      <p>{user.bio || "No bio provided yet."}</p>
-                    </div>
-                    
-                    {isCompany && (
-                      <>
-                        <div>
-                          <h4 className="text-sm font-medium text-muted-foreground mb-1">Website</h4>
-                          {user.website ? (
-                            <a 
-                              href={user.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-primary hover:underline"
-                            >
-                              {user.website}
-                            </a>
-                          ) : (
-                            <p>No website provided yet.</p>
-                          )}
-                        </div>
-                        
-                        <div>
-                          <h4 className="text-sm font-medium text-muted-foreground mb-1">Location</h4>
-                          <p>{user.location || "No location provided yet."}</p>
-                        </div>
-                      </>
-                    )}
-                    
-                    <div>
-                      <h4 className="text-sm font-medium text-muted-foreground mb-1">Email</h4>
-                      <p>{user.email}</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-sm font-medium text-muted-foreground mb-1">Joined</h4>
-                      <p>{user.createdAt.toLocaleDateString()}</p>
-                    </div>
-                  </div>
+              <TabsContent value="projects" className="mt-4">
+                <h3 className="text-lg font-medium mb-2">Recent Projects</h3>
+                <p className="text-muted-foreground">You have contributed to {user.projects} projects.</p>
+                
+                <div className="mt-4">
+                  <Button variant="outline" className="w-full">View All Projects</Button>
                 </div>
               </TabsContent>
             </Tabs>
-          </AnimatedTransition>
-        </div>
-      </main>
-      
-      <Footer />
+          </CardContent>
+        </Card>
+      </AnimatedTransition>
     </div>
   );
 };
