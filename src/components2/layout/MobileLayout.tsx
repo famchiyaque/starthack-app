@@ -15,33 +15,33 @@ const MobileLayout = ({ children }: MobileLayoutProps) => {
   const navItems = [
     {
       name: "Puntos",
-      path: "/points",
+      path: "/client/points",
       icon: Award,
     },
     {
       name: "Buscar",
-      path: "/search",
+      path: "/client/search",
       icon: Search,
     },
     {
       name: "Feed",
-      path: "/user",
+      path: "/client/user",
       icon: LayoutGrid,
     },
     {
       name: "Comunidad",
-      path: "/community",
+      path: "/client/community",
       icon: Users,
     },
     {
       name: "Perfil",
-      path: "/user/profile",
+      path: "/client/user/profile",
       icon: UserRound,
     },
   ];
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-background">
+    <div className="flex flex-col min-h-screen overflow-hidden bg-background w-full max-w-md mx-auto">
       <main className="flex-1 overflow-y-auto pb-16">{children}</main>
       
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-border shadow-lg">

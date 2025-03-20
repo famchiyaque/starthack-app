@@ -45,22 +45,22 @@ const AppSidebar = () => {
   const menuItems = [
     {
       title: 'Projects',
-      path: '/projects',
+      path: '/companies/projects',
       icon: LayoutDashboard,
     },
     {
       title: 'Feed',
-      path: '/feed',
+      path: '/companies/feed',
       icon: Rss,
     },
     {
       title: 'Collaborators',
-      path: '/collaborators',
+      path: '/companies/collaborators',
       icon: Users,
     },
     {
       title: 'Profile',
-      path: '/profile',
+      path: '/companies/profile',
       icon: User,
     },
   ];

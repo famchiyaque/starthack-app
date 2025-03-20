@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import MobileLayout from "@/components2/layout/MobileLayout";
 import ProjectCard from "@/components2/common/ProjectCard";
@@ -7,78 +6,65 @@ import { Search as SearchIcon, MapPin, Filter } from "lucide-react";
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   
-  // Mock data for projects
   const projects = [
     {
       id: 1,
-      title: "Limpieza de playa San Carlos",
-      company: "EcoMundo",
-      description: "Ayúdanos a limpiar la playa y conservar el ecosistema marino.",
-      imageUrl: "https://images.unsplash.com/photo-1618477462146-050d2757350d?q=80&w=1000",
+      title: "Youngest, Cleanest Fleet in the Sky",
+      company: "Virgin Atlantic",
+      description: "Virgin Atlantic is working to accelerate the development of sustainable fuels. On November 28th, we made history with Flight100— becoming the first commercial airline to fly across the Atlantic on 100% SAF -  marking a key milestone on the path to decarbonising aviation.",
+      imageUrl: "https://vaabrowse.virginatlantic.com//content/dam/vhols/hp/content-card-images/Lady-in-car-LA.jpg.vaa.75.avif",
       participants: 48,
-      deadline: "23 Jun",
+      deadline: "Jun 23",
       rewards: "200 pts",
-      category: "Medio ambiente",
+      category: "Environment",
     },
     {
       id: 2,
-      title: "Plantación de árboles nativos",
-      company: "GreenForest",
-      description: "Contribuye a la reforestación con especies nativas.",
-      imageUrl: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000",
+      title: "Epic Sea Change For All",
+      company: "Virgin Voyages",
+      description: "Virgin Voyages have teamed up with Virgin’s Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
+      imageUrl: "https://media.virginvoyages.com/https://www.virginvoyages.com/dam/jcr:44bfcae2-34ca-44f7-a27b-9e753bf16d8a/IMG-DEST-st-croix-Catamaran-Off-Coast-of-St-Croix-share-page-hero-v1-16x9.jpg",
       participants: 32,
-      deadline: "15 Jul",
+      deadline: "Jul 15",
       rewards: "150 pts",
-      category: "Reforestación",
-    },
-    {
-      id: 3,
-      title: "Recolección de alimentos",
-      company: "FoodShare",
-      description: "Dona alimentos para familias necesitadas en tu comunidad.",
-      imageUrl: "https://images.unsplash.com/photo-1593113598332-cd59a0c3a4be?q=80&w=1000",
-      participants: 76,
-      deadline: "30 Jun",
-      rewards: "250 pts",
-      category: "Comunidad",
+      category: "Reforestation",
     },
     {
       id: 4,
-      title: "Taller de reciclaje creativo",
-      company: "ArtEco",
-      description: "Aprende a crear objetos útiles con materiales reciclados.",
+      title: "Creative Recycling Workshop",
+      company: "Virgin Unite",
+      description: "Learn to create useful objects from recycled materials.",
       imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000",
       participants: 28,
-      deadline: "5 Jul",
+      deadline: "July 5",
       rewards: "180 pts",
-      category: "Educación",
+      category: "Education",
     },
     {
       id: 5,
-      title: "Maratón por la conservación",
-      company: "RunForNature",
-      description: "Corre para recaudar fondos para la conservación animal.",
+      title: "Conservation Marathon",
+      company: "Virgin Voyages",
+      description: "Run to raise funds for wildlife conservation.",
       imageUrl: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1000",
       participants: 125,
-      deadline: "12 Ago",
+      deadline: "August 12",
       rewards: "300 pts",
-      category: "Deporte",
+      category: "Sports",
     },
   ];
 
   const categories = [
-    "Todos", "Medio ambiente", "Comunidad", "Educación", "Reforestación", "Deporte"
+    "All", "Environment", "Community", "Education", "Reforestation", "Sports"
   ];
 
-  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  // Filter projects based on search term and category
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesCategory = activeCategory === "Todos" || project.category === activeCategory;
+    const matchesCategory = activeCategory === "All" || project.category === activeCategory;
     
     return matchesSearch && matchesCategory;
   });
@@ -86,7 +72,7 @@ const Search = () => {
   return (
     <MobileLayout>
       <div className="page-container">
-        <h1 className="section-title text-xl mb-4">Descubre Proyectos</h1>
+        <h1 className="section-title text-xl mb-4">Discover Projects</h1>
         
         <div className="relative mb-4">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -94,7 +80,7 @@ const Search = () => {
           </div>
           <input
             type="text"
-            placeholder="Buscar proyectos, empresas..."
+            placeholder="Search projects, companies..."
             className="pl-10 pr-4 py-3 w-full rounded-xl bg-white border border-border focus:outline-none focus:ring-1 focus:ring-orange-300 transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -122,11 +108,11 @@ const Search = () => {
         <div className="flex items-center justify-between mb-4">
           <button className="flex items-center gap-1 text-sm text-muted-foreground">
             <MapPin className="h-4 w-4" /> 
-            <span>Cerca de mí</span>
+            <span>Near Me</span>
           </button>
           <button className="flex items-center gap-1 text-sm text-muted-foreground">
             <Filter className="h-4 w-4" /> 
-            <span>Filtros</span>
+            <span>Filters</span>
           </button>
         </div>
         
@@ -147,7 +133,7 @@ const Search = () => {
             ))
           ) : (
             <div className="text-center py-8">
-              <p className="text-muted-foreground">No se encontraron proyectos.</p>
+              <p className="text-muted-foreground">No projects found.</p>
             </div>
           )}
         </div>

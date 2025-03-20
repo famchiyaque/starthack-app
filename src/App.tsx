@@ -30,7 +30,7 @@ const queryClient = new QueryClient();
 
 // Mobile container for user routes
 const MobileContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="mobile-container">
+  <div className="mobile">
     <div className="mobile-content">{children}</div>
   </div>
 );
@@ -47,20 +47,20 @@ const App = () => (
             <Route path="/auth/:action" element={<Auth />} />
             
             {/* Company routes */}
-            <Route path="/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
-            <Route path="/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
-            <Route path="/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
-            <Route path="/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
-            <Route path="/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
+            <Route path="companies/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
+            <Route path="companies/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
+            <Route path="companies/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
+            <Route path="companies/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
+            <Route path="companies/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
             {/* end company routes */}
 
             {/* User routes */}
-            <Route path="/user" element={<MobileContainer><Index2 /></MobileContainer>} />
-            <Route path="/points" element={<MobileContainer><Points2 /></MobileContainer>} />
-            <Route path="/search" element={<MobileContainer><Search2 /></MobileContainer>} />
-            <Route path="/community" element={<MobileContainer><Community2 /></MobileContainer>} />
-            <Route path="/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
-            <Route path="/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
+            <Route path="client/user" element={<MobileContainer><Index2 /></MobileContainer>} />
+            <Route path="client/points" element={<MobileContainer><Points2 /></MobileContainer>} />
+            <Route path="client/search" element={<MobileContainer><Search2 /></MobileContainer>} />
+            <Route path="client/community" element={<MobileContainer><Community2 /></MobileContainer>} />
+            <Route path="client/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
+            <Route path="client/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
             {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />
