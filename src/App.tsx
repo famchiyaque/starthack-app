@@ -5,6 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import SignIn from './pages/SignIn'
+
+// User Routes
 import Index2 from "./pages2/Index";
 import Points2 from "./pages2/Points";
 import Search2 from "./pages2/Search";
@@ -16,7 +19,7 @@ import "./styles/MobileContainer.css";
 // Layouts
 import SidebarLayout from "./components/layout/AppSidebar";
 
-// Pages
+// Company Routes
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
@@ -43,24 +46,27 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/projects" replace />} />
+            <Route path="/" element={<Navigate to="/sign-in" replace />} />
+            <Route path="/sign-in" element={ <SignIn /> } />
             <Route path="/auth/:action" element={<Auth />} />
             
             {/* Company routes */}
-            <Route path="companies/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
-            <Route path="companies/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
-            <Route path="companies/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
-            <Route path="companies/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
-            <Route path="companies/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
+            <Route path="/company" element={ <Navigate to="/company/projects" replace /> } />
+            <Route path="company/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
+            <Route path="company/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
+            <Route path="company/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
+            <Route path="company/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
+            <Route path="company/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
             {/* end company routes */}
 
             {/* User routes */}
-            <Route path="client/user" element={<MobileContainer><Index2 /></MobileContainer>} />
-            <Route path="client/points" element={<MobileContainer><Points2 /></MobileContainer>} />
-            <Route path="client/search" element={<MobileContainer><Search2 /></MobileContainer>} />
-            <Route path="client/community" element={<MobileContainer><Community2 /></MobileContainer>} />
-            <Route path="client/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
-            <Route path="client/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
+            <Route path="/user" element={ <Navigate to="/user/feed" replace /> } />
+            <Route path="user/feed" element={<MobileContainer><Index2 /></MobileContainer>} />
+            <Route path="user/points" element={<MobileContainer><Points2 /></MobileContainer>} />
+            <Route path="user/search" element={<MobileContainer><Search2 /></MobileContainer>} />
+            <Route path="user/community" element={<MobileContainer><Community2 /></MobileContainer>} />
+            <Route path="user/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
+            <Route path="user/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
             {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />

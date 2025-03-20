@@ -1,52 +1,30 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Clock, MessageCircle, Bell, Plus } from 'lucide-react';
 import AnimatedTransition from '@/components/common/AnimatedTransition';
 
-// Dummy data for projects
-const mockProjects = [
-  {
-    id: '1',
-    title: 'Mobile App Redesign',
-    description: 'Redesigning the mobile app interface for better user experience',
-    progress: 75,
-    updatedAt: new Date('2023-09-15'),
-    comments: 24,
-    notifications: 5,
-  },
-  {
-    id: '2',
-    title: 'Website Development',
-    description: 'Creating a responsive website for a client in the healthcare industry',
-    progress: 45,
-    updatedAt: new Date('2023-09-10'),
-    comments: 12,
-    notifications: 2,
-  },
-  {
-    id: '3',
-    title: 'Marketing Campaign',
-    description: 'Developing a marketing strategy for a new product launch',
-    progress: 30,
-    updatedAt: new Date('2023-09-05'),
-    comments: 8,
-    notifications: 0,
-  },
-  {
-    id: '4',
-    title: 'Brand Identity',
-    description: 'Creating a new brand identity including logo, colors, and typography',
-    progress: 90,
-    updatedAt: new Date('2023-09-01'),
-    comments: 15,
-    notifications: 1,
-  },
-];
-
 const Projects = () => {
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    console.log("about to call backend api for projects");
+
+    fetch('/api/get-projects')
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        console.log("returned data: ", data);
+        setProjects(data);
+      })
+      .catch(error => console.error("Fetch error:", error));
+}, []);
+
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -58,33 +36,36 @@ const Projects = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockProjects.map((project, index) => (
+        {projects.map((project, index) => (
           <AnimatedTransition key={project.id} type="fade" delay={index * 100}>
-            <Link to={`/projects/${project.id}`} className="block group">
+            <Link to={`/company/projects/${project.id}`} className="block group">
               <Card className="h-full transition-all duration-300 hover:shadow-md hover:border-primary/50">
                 <CardHeader className="pb-2">
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">{project.description}</CardDescription>
+                  <CardTitle>{project.company_name}</CardTitle>
+                  <CardDescription className="line-clamp-2">{project.initiative}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-primary transition-all" 
-                      style={{ width: `${project.progress}%` }}
+                      // style={{ width: `${project.progress}%` }}
+                      style={{ width: '75%' }}
                     />
                   </div>
                   <div className="mt-2 text-sm text-muted-foreground">
-                    Progress: {project.progress}%
+                    {/* Progress: {project.progress}% */}
+                    Progress: 75%
                   </div>
                 </CardContent>
                 <CardFooter className="border-t pt-4 flex justify-between">
                   <div className="flex items-center gap-1 text-sm text-muted-foreground">
                     <Clock size={14} />
                     <span>
-                      {project.updatedAt.toLocaleDateString('en-US', {
+                      {project.created_at}
+                      {/* {project.updatedAt.toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
-                      })}
+                      })} */}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
