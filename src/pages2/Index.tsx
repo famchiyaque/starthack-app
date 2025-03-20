@@ -11,7 +11,7 @@ const Index = () => {
       title: "Youngest, Cleanest Fleet in the Sky",
       company: "Virgin Atlantic",
       description: "Virgin Atlantic is working to accelerate the development of sustainable fuels. On November 28th, we made history with Flight100— becoming the first commercial airline to fly across the Atlantic on 100% SAF -  marking a key milestone on the path to decarbonising aviation.",
-      imageUrl: "https://vaabrowse.virginatlantic.com//content/dam/vhols/hp/content-card-images/Lady-in-car-LA.jpg.vaa.75.avif",
+      imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1000",
       participants: 48,
       deadline: "Jun 23",
       rewards: "200 pts",
