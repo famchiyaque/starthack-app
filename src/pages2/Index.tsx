@@ -1,8 +1,8 @@
 
 import React from "react";
-import MobileLayout from "@/components/layout/MobileLayout";
-import Hero from "@/components/home/Hero";
-import ProjectCard from "@/components/common/ProjectCard";
+import MobileLayout from "@/components2/layout/MobileLayout";
+import Hero from "@/components2/home/Hero";
+import ProjectCard from "@/components2/common/ProjectCard";
 
 const Index = () => {
   // Mock data for projects
