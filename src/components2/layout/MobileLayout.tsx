@@ -15,27 +15,27 @@ const MobileLayout = ({ children }: MobileLayoutProps) => {
   const navItems = [
     {
       name: "Points",
-      path: "/client/points",
+      path: "/user/points",
       icon: Award,
     },
     {
       name: "Search",
-      path: "/client/search",
+      path: "/user/search",
       icon: Search,
     },
     {
       name: "Feed",
-      path: "/client/user",
+      path: "/user/feed",
       icon: LayoutGrid,
     },
     {
-      name: "Community",
-      path: "/client/community",
+      name: "Communities",
+      path: "/user/community",
       icon: Users,
     },
     {
       name: "Profile",
-      path: "/client/user/profile",
+      path: "/user/user/profile",
       icon: UserRound,
     },
   ];
