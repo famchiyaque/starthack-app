@@ -38,19 +38,22 @@ const App = () => (
             <Route path="/" element={<Navigate to="/projects" replace />} />
             <Route path="/auth/:action" element={<Auth />} />
             
-            {/* Protected Routes */}
+            {/* Company routes */}
             <Route path="/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
             <Route path="/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
             <Route path="/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
             <Route path="/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
             <Route path="/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
+            {/* end company routes */}
 
+            {/* User routes */}
             <Route path="/" element={<Index />} />
             <Route path="/points" element={<Points2 />} />
             <Route path="/search" element={<Search2 />} />
             <Route path="/community" element={<Community2 />} />
             <Route path="/profile" element={<Profile2 />} />
             <Route path="*" element={<NotFound />} />
+            {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />
           </Routes>
