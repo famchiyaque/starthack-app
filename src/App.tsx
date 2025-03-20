@@ -5,6 +5,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import Index2 from "./pages2/Index";
+import Points2 from "./pages2/Points";
+import Search2 from "./pages2/Search";
+import Community2 from "./pages2/Community";
+import Profile2 from "./pages2/Profile";
+import NotFound2 from "./pages2/NotFound";
 
 // Layouts
 import SidebarLayout from "./components/layout/AppSidebar";
@@ -38,6 +44,13 @@ const App = () => (
             <Route path="/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
             <Route path="/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
             <Route path="/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
+
+            <Route path="/" element={<Index />} />
+            <Route path="/points" element={<Points2 />} />
+            <Route path="/search" element={<Search2 />} />
+            <Route path="/community" element={<Community2 />} />
+            <Route path="/profile" element={<Profile2 />} />
+            <Route path="*" element={<NotFound />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>
