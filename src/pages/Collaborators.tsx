@@ -78,7 +78,7 @@ const mockChats = [
       status: 'online',
     },
     lastMessage: {
-      content: 'I'll send over the updated wireframes tomorrow.',
+      content: 'I\'ll send over the updated wireframes tomorrow.',
       timestamp: new Date('2023-09-13T11:05:00'),
       isRead: false,
     },
