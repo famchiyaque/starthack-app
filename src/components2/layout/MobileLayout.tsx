@@ -25,7 +25,7 @@ const MobileLayout = ({ children }: MobileLayoutProps) => {
     },
     {
       name: "Feed",
-      path: "/",
+      path: "/user",
       icon: LayoutGrid,
     },
     {
@@ -35,7 +35,7 @@ const MobileLayout = ({ children }: MobileLayoutProps) => {
     },
     {
       name: "Perfil",
-      path: "/profile",
+      path: "/user/profile",
       icon: UserRound,
     },
   ];
@@ -51,13 +51,13 @@ const MobileLayout = ({ children }: MobileLayoutProps) => {
               key={item.path}
               to={item.path}
               className={cn(
-                "nav-item w-full h-full pt-2",
-                pathname === item.path && "active"
+                "flex flex-col items-center justify-center w-full h-full text-xs",
+                pathname === item.path ? "text-primary" : "text-muted-foreground"
               )}
             >
               <item.icon 
                 className={cn(
-                  "nav-icon transition-colors duration-200",
+                  "h-5 w-5 mb-1 transition-colors duration-200",
                   pathname === item.path ? "text-primary" : "text-muted-foreground"
                 )} 
               />

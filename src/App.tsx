@@ -11,6 +11,7 @@ import Search2 from "./pages2/Search";
 import Community2 from "./pages2/Community";
 import Profile2 from "./pages2/Profile";
 import NotFound2 from "./pages2/NotFound";
+import "./styles/MobileContainer.css";
 
 // Layouts
 import SidebarLayout from "./components/layout/AppSidebar";
@@ -26,6 +27,13 @@ import Collaborators from "./pages/Collaborators";
 import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
+
+// Mobile container for user routes
+const MobileContainer = ({ children }: { children: React.ReactNode }) => (
+  <div className="mobile-container">
+    <div className="mobile-content">{children}</div>
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -47,12 +55,12 @@ const App = () => (
             {/* end company routes */}
 
             {/* User routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/points" element={<Points2 />} />
-            <Route path="/search" element={<Search2 />} />
-            <Route path="/community" element={<Community2 />} />
-            <Route path="/profile" element={<Profile2 />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/user" element={<MobileContainer><Index2 /></MobileContainer>} />
+            <Route path="/points" element={<MobileContainer><Points2 /></MobileContainer>} />
+            <Route path="/search" element={<MobileContainer><Search2 /></MobileContainer>} />
+            <Route path="/community" element={<MobileContainer><Community2 /></MobileContainer>} />
+            <Route path="/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
+            <Route path="/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
             {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />
