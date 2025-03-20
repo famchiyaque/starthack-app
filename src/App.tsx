@@ -11,6 +11,7 @@ import Search2 from "./pages2/Search";
 import Community2 from "./pages2/Community";
 import Profile2 from "./pages2/Profile";
 import NotFound2 from "./pages2/NotFound";
+import "./styles/MobileContainer.css";
 
 // Layouts
 import SidebarLayout from "./components/layout/AppSidebar";
@@ -27,6 +28,13 @@ import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
+// Mobile container for user routes
+const MobileContainer = ({ children }: { children: React.ReactNode }) => (
+  <div className="mobile">
+    <div className="mobile-content">{children}</div>
+  </div>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -39,20 +47,20 @@ const App = () => (
             <Route path="/auth/:action" element={<Auth />} />
             
             {/* Company routes */}
-            <Route path="/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
-            <Route path="/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
-            <Route path="/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
-            <Route path="/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
-            <Route path="/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
+            <Route path="companies/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
+            <Route path="companies/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
+            <Route path="companies/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
+            <Route path="companies/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />
+            <Route path="companies/profile" element={<SidebarLayout><Profile /></SidebarLayout>} />
             {/* end company routes */}
 
             {/* User routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/points" element={<Points2 />} />
-            <Route path="/search" element={<Search2 />} />
-            <Route path="/community" element={<Community2 />} />
-            <Route path="/profile" element={<Profile2 />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="client/user" element={<MobileContainer><Index2 /></MobileContainer>} />
+            <Route path="client/points" element={<MobileContainer><Points2 /></MobileContainer>} />
+            <Route path="client/search" element={<MobileContainer><Search2 /></MobileContainer>} />
+            <Route path="client/community" element={<MobileContainer><Community2 /></MobileContainer>} />
+            <Route path="client/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
+            <Route path="client/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
             {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />

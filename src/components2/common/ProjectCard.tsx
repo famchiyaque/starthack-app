@@ -61,7 +61,7 @@ const ProjectCard = ({
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center text-muted-foreground">
             <Users className="h-3.5 w-3.5 mr-1" />
-            <span>{participants} participantes</span>
+            <span>{participants} participants</span>
           </div>
           <div className="flex items-center text-orange-600 font-medium">
             <Award className="h-3.5 w-3.5 mr-1" />
