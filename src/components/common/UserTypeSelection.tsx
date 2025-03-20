@@ -16,14 +16,14 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect, classNa
       <AnimatedTransition type="slide" direction="left" delay={100}>
         <Button
           variant="outline"
-          className="h-auto p-6 flex flex-col items-center justify-center gap-4 group transition-all duration-300 hover:bg-primary/5 border-2"
+          className="h-auto p-6 flex flex-col items-center justify-center gap-4 group transition-all duration-300 hover:bg-primary/10 border-2 border-primary/20 hover:border-primary/40"
           onClick={() => onSelect('company')}
         >
-          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/20 group-hover:bg-primary/30 transition-colors duration-300">
             <Building className="w-8 h-8 text-primary" />
           </div>
           <div className="space-y-2 text-center">
-            <h3 className="text-xl font-medium">Company</h3>
+            <h3 className="text-xl font-medium text-primary">Company</h3>
             <p className="text-muted-foreground text-sm">
               Showcase your projects and share progress with the community
             </p>
@@ -34,14 +34,14 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect, classNa
       <AnimatedTransition type="slide" direction="right" delay={200}>
         <Button
           variant="outline"
-          className="h-auto p-6 flex flex-col items-center justify-center gap-4 group transition-all duration-300 hover:bg-primary/5 border-2"
+          className="h-auto p-6 flex flex-col items-center justify-center gap-4 group transition-all duration-300 hover:bg-secondary/10 border-2 border-secondary/20 hover:border-secondary/40"
           onClick={() => onSelect('individual')}
         >
-          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-            <User className="w-8 h-8 text-primary" />
+          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-secondary/20 group-hover:bg-secondary/30 transition-colors duration-300">
+            <User className="w-8 h-8 text-secondary" />
           </div>
           <div className="space-y-2 text-center">
-            <h3 className="text-xl font-medium">Individual</h3>
+            <h3 className="text-xl font-medium text-secondary">Individual</h3>
             <p className="text-muted-foreground text-sm">
               Discover projects, follow companies, and engage with updates
             </p>
