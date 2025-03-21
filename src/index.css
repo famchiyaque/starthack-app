@@ -131,3 +131,8 @@
     @apply bg-primary bg-opacity-70;
   }
 }
+@layer components {
+  .mobile-container .section-title {
+    @apply text-base;
+  }
+}

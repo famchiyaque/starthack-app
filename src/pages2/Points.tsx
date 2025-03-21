@@ -1,82 +1,70 @@
-import React from "react";
+import React from 'react';
+import Header from '@/components2/Header';
+import PointsCard from '@/components2/PointsCard';
+import CouponCard from '@/components2/CouponCard';
+import RewardCard from '@/components2/RewardCard';
 import MobileLayout from "@/components2/layout/MobileLayout";
-import { Award, ChevronRight, Ticket, Gift } from "lucide-react";
+import InitiativeCard from '@/components2/InitiativeCard';
+import TabBar from '@/components2/TabBar';
+import { initiatives, coupons, rewards, userPoints } from '@/data/coupons';
 
-const Points = () => {
+// Sample progress data for coupons
+const couponProgress = [
+  { id: 1, progress: 75 }, // 3 out of 4 steps completed
+  { id: 2, progress: 50 }, // 2 out of 4 steps completed
+  { id: 3, progress: 25 }, // 1 out of 4 steps completed
+];
+
+const Index = () => {
+  // Function to get progress for a coupon
+  const getCouponProgress = (couponId: number) => {
+    const progressData = couponProgress.find(item => item.id === couponId);
+    return progressData ? progressData.progress : 0;
+  };
+
   return (
     <MobileLayout>
-      <div className="page-container">
-        <div className="rounded-2xl overflow-hidden mb-6 relative">
-          <div className="bg-gradient-to-br from-red-600 to-red-700 p-6 text-white">
-            <h1 className="text-lg font-bold mb-2">My Points</h1>
-            <div className="flex items-center mb-2">
-              <Award className="h-10 w-10 mr-3 text-red-300" />
-              <div className="flex flex-col">
-                <span className="text-3xl font-bold">2,450</span>
-                <span className="text-red-200 text-xs">Available Points</span>
-              </div>
+      <div className="min-h-screen bg-gray-50 pb-20">
+        <main className="max-w-lg mx-auto px-4 py-6 space-y-8">
+
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">My Coupons progress</h2>
+            <div className="space-y-3">
+              {coupons.slice(0, 3).map((coupon) => (
+                <CouponCard
+                  key={coupon.id}
+                  id={coupon.id}
+                  title={coupon.title}
+                  company={coupon.company}
+                  discount={coupon.discount}
+                  expiry={coupon.expiry}
+                  progress={getCouponProgress(coupon.id)}
+                  requiredSteps={4}
+                />
+              ))}
             </div>
-            
-            <div className="flex justify-between mt-4 text-sm">
-              <div>
-                <p className="text-red-200">This Month</p>
-                <p className="font-semibold">+350 pts</p>
-              </div>
-              <div>
-                <p className="text-red-200">Accumulated</p>
-                <p className="font-semibold">4,200 pts</p>
-              </div>
-              <div>
-                <p className="text-red-200">Redeemed</p>
-                <p className="font-semibold">1,750 pts</p>
-              </div>
+          </section>
+
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">Available Rewards</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {rewards.slice(0, 2).map((reward) => (
+                <RewardCard
+                  key={reward.id}
+                  id={reward.id}
+                  title={reward.title}
+                  description={reward.description}
+                  points={reward.points}
+                />
+              ))}
             </div>
-            
-            {/* Decorative circles */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 rounded-full translate-x-16 -translate-y-8 blur-xl"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-red-400/10 rounded-full -translate-x-12 translate-y-6 blur-xl"></div>
-          </div>
-        </div>
-        
-        <div className="mb-6">
-          <h2 className="section-title">My Coupons</h2>
-          <div className="space-y-3">
-            <div className="flex bg-white rounded-xl overflow-hidden border border-border card-hover">
-              <div className="w-24 bg-red-100 flex items-center justify-center p-4">
-                <Ticket className="h-10 w-10 text-red-600" />
-              </div>
-              <div className="flex-1 p-4 flex flex-col justify-center">
-                <h3 className="font-medium">15% Discount</h3>
-                <p className="text-xs text-muted-foreground">EcoMundo Stores</p>
-              </div>
-              <div className="w-10 flex items-center justify-center text-muted-foreground">
-                <ChevronRight className="h-5 w-5" />
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          <h2 className="section-title">Available Rewards</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-white rounded-xl border border-border card-hover">
-              <div className="flex items-center justify-between mb-3">
-                <div className="bg-red-100 h-12 w-12 rounded-full flex items-center justify-center">
-                  <Gift className="h-6 w-6 text-red-600" />
-                </div>
-                <div className="chip bg-red-100">500 pts</div>
-              </div>
-              <h3 className="font-medium mb-1">Movie Ticket</h3>
-              <p className="text-xs text-muted-foreground mb-3">Valid for any screening</p>
-              <button className="w-full bg-red-100 hover:bg-red-200 text-red-600 text-sm font-medium py-2 rounded-lg transition-colors">
-                Redeem
-              </button>
-            </div>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
     </MobileLayout>
   );
 };
 
-export default Points;
+export default Index;

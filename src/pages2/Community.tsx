@@ -44,7 +44,7 @@ const Community = () => {
   ];
 
   const handleForumClick = (forumId) => {
-    navigate(`/community/forum/${forumId}`);
+    navigate(`/user/community/forum/${forumId}`);
   };
 
   return (
@@ -52,7 +52,7 @@ const Community = () => {
       <div className="page-container">
         <Tabs defaultValue="forums" className="w-full mb-6">
           <TabsContent value="forums" className="space-y-4">
-            <h2 className="">Communities</h2>
+            <h2 className="text-center">Communities</h2>
             <div className="space-y-4">
               {companyForums.map((forum) => (
                 <Card 

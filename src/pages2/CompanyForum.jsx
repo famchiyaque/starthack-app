@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MobileLayout from "@/components2/layout/MobileLayout";
 import { 
@@ -9,7 +10,9 @@ import {
   Clock, 
   Send, 
   ChevronDown,
-  Building 
+  Building,
+  Image,
+  X
 } from "lucide-react";
 import { 
   Card, 
@@ -44,7 +47,7 @@ const CompanyForum = () => {
       title: "Epic Sea Change For All",
       company: "Virgin Voyages",
       imageUrl: "https://media.virginvoyages.com/https://www.virginvoyages.com/dam/jcr:44bfcae2-34ca-44f7-a27b-9e753bf16d8a/IMG-DEST-st-croix-Catamaran-Off-Coast-of-St-Croix-share-page-hero-v1-16x9.jpg",
-      description: "Virgin Voyages have teamed up with Virgin’s Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
+      description: "Virgin Voyages have teamed up with Virgin's Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
       members: 315,
       posts: 98,
       projects: [
@@ -69,8 +72,8 @@ const CompanyForum = () => {
     }
   ];
   
-  // Mock data for forum posts
-  const posts = [
+  // Mock post initial data
+  const initialPosts = [
     {
       id: 1,
       user: {
@@ -81,7 +84,17 @@ const CompanyForum = () => {
       content: "Amazing reforestation initiative we completed last weekend! We managed to plant more than 200 trees in just two days. Did anyone else participate?",
       timestamp: "2 hours ago",
       likes: 24,
-      comments: 8,
+      comments: [
+        {
+          id: 101,
+          user: {
+            name: "Miguel Sanchez",
+            avatar: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=100"
+          },
+          content: "Excellent initiative! I participated last year and it was an incredible experience.",
+          timestamp: "20 min"
+        }
+      ],
       images: ["https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=500"]
     },
     {
@@ -94,7 +107,17 @@ const CompanyForum = () => {
       content: "Reminder: This Saturday we have the Las Palmas beach cleanup. We need volunteers. The company will donate a tree for each kg of plastic collected. We look forward to seeing you!",
       timestamp: "Yesterday",
       likes: 46,
-      comments: 15,
+      comments: [
+        {
+          id: 201,
+          user: {
+            name: "Laura Ortiz",
+            avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=100"
+          },
+          content: "I'll be there! Already registered my team of 5 people.",
+          timestamp: "5 hours"
+        }
+      ],
       images: []
     },
     {
@@ -107,15 +130,161 @@ const CompanyForum = () => {
       content: "We're announcing our new corporate recycling challenge! Participate and earn double points this month. The first 50 participants will receive a kit of sustainable products.",
       timestamp: "3 days ago",
       likes: 87,
-      comments: 32,
+      comments: [
+        {
+          id: 301,
+          user: {
+            name: "Roberto Vega",
+            avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=100"
+          },
+          content: "Great initiative! Where can we sign up?",
+          timestamp: "2 days"
+        },
+        {
+          id: 302,
+          user: {
+            name: "Diana Torres",
+            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100"
+          },
+          content: "I already received my kit and it's amazing!",
+          timestamp: "1 day"
+        }
+      ],
       images: ["https://images.unsplash.com/photo-1517925035435-7976539b920d?q=80&w=500"]
     }
   ];
+  
+  // State to manage posts and comments
+  const [posts, setPosts] = useState(initialPosts);
+  const [commentInputs, setCommentInputs] = useState({});
+  
+  // State for new post creation
+  const [newPostContent, setNewPostContent] = useState("");
+  const [newPostImage, setNewPostImage] = useState(null);
+  const [isCreatingPost, setIsCreatingPost] = useState(false);
   
   const currentForum = forums.find(forum => forum.id === forumId) || forums[0];
   
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  // Handle comment input change
+  const handleCommentChange = (postId, value) => {
+    setCommentInputs({
+      ...commentInputs,
+      [postId]: value
+    });
+  };
+
+  // Handle comment submission
+  const handleAddComment = (postId) => {
+    // Only add comment if there's content
+    if (commentInputs[postId] && commentInputs[postId].trim() !== '') {
+      const updatedPosts = posts.map(post => {
+        if (post.id === postId) {
+          // Create a new comment
+          const newComment = {
+            id: Date.now(), // Generate a unique ID
+            user: {
+              name: "You", // Assuming current user
+              avatar: "/ian.jpeg"
+            },
+            content: commentInputs[postId],
+            timestamp: "Just now"
+          };
+          
+          // Add new comment to the post
+          return {
+            ...post,
+            comments: [...post.comments, newComment]
+          };
+        }
+        return post;
+      });
+      
+      setPosts(updatedPosts);
+      
+      // Clear the input field
+      setCommentInputs({
+        ...commentInputs,
+        [postId]: ''
+      });
+    }
+  };
+
+  // Handle pressing Enter to submit comment
+  const handleKeyPress = (e, postId) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddComment(postId);
+    }
+  };
+  
+  // Toggle post creation mode
+  const togglePostCreation = () => {
+    setIsCreatingPost(!isCreatingPost);
+  };
+  
+  // Handle new post content change
+  const handleNewPostChange = (e) => {
+    setNewPostContent(e.target.value);
+  };
+  
+  // Handle image selection for new post
+  const handleImageSelect = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      // Crear una URL para la imagen seleccionada
+      const fileUrl = URL.createObjectURL(e.target.files[0]);
+      setNewPostImage(fileUrl);
+    }
+  };
+  
+  // Asegúrate de limpiar la URL del objeto cuando ya no se necesite
+  // Añade esta función para limpiar la URL cuando se elimine la imagen
+  const handleRemoveImage = () => {
+    if (newPostImage) {
+      URL.revokeObjectURL(newPostImage);
+      setNewPostImage(null);
+    }
+  };
+  
+  // También debemos limpiar las URLs cuando el componente se desmonte
+  // Añade este efecto a tu componente:
+  useEffect(() => {
+    // Función de limpieza para cuando el componente se desmonte
+    return () => {
+      if (newPostImage && newPostImage.startsWith('blob:')) {
+        URL.revokeObjectURL(newPostImage);
+      }
+    };
+  }, [newPostImage]);
+  // Submit new post
+  const handleSubmitPost = () => {
+    if (newPostContent.trim() !== '') {
+      // Create new post object
+      const newPost = {
+        id: Date.now(),
+        user: {
+          name: "You",
+          avatar: "/ian.jpeg",
+          role: "Member"
+        },
+        content: newPostContent,
+        timestamp: "Just now",
+        likes: 0,
+        comments: [],
+        images: newPostImage ? [newPostImage] : []
+      };
+      
+      // Add new post to the beginning of the posts array
+      setPosts([newPost, ...posts]);
+      
+      // Reset post creation
+      setNewPostContent("");
+      setNewPostImage(null);
+      setIsCreatingPost(false);
+    }
   };
 
   return (
@@ -174,18 +343,93 @@ const CompanyForum = () => {
           </TabsList>
           
           <TabsContent value="posts" className="space-y-4">
-            <div className="bg-white rounded-xl border border-border p-4 mb-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100"
-                  alt="User avatar" 
-                  className="w-full h-full object-cover"
-                />
+            {/* New post creation box */}
+            {isCreatingPost ? (
+              <Card className="overflow-hidden">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                      <img 
+                        src="/ian.jpeg" 
+                        alt="Your avatar" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm font-medium">You</span>
+                  </div>
+                  
+                  <textarea 
+                    className="w-full border border-gray-200 rounded-lg p-3 text-sm mb-3 min-h-24 focus:outline-none focus:ring-1 focus:ring-[#DA0630]"
+                    placeholder="What are you thinking?"
+                    value={newPostContent}
+                    onChange={handleNewPostChange}
+                  />
+                  
+                  {newPostImage && (
+                    <div className="mb-3 relative">
+                      <img 
+                        src={newPostImage} 
+                        alt="Selected image" 
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                      <button 
+                        className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
+                        onClick={handleRemoveImage}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <label className="cursor-pointer flex items-center gap-1 text-sm text-muted-foreground hover:text-[#DA0630]">
+                        <Image className="h-5 w-5" />
+                        <input 
+                          type="file" 
+                          className="hidden" 
+                          accept="image/*"
+                          onChange={handleImageSelect}
+                        />
+                        Add Photo
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={togglePostCreation}
+                      >
+                        Cancel
+                      </Button>
+                      <Button 
+                        className="bg-[#DA0630] text-white hover:bg-[#DA0630]/90"
+                        size="sm"
+                        onClick={handleSubmitPost}
+                      >
+                        Post
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <div 
+                className="bg-white rounded-xl border border-border p-4 mb-4 flex items-center gap-3 cursor-pointer hover:border-[#DA0630] transition-all"
+                onClick={togglePostCreation}
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden">
+                  <img 
+                    src="/ian.jpeg"
+                    alt="User avatar" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm text-muted-foreground">
+                  What are you thinking?
+                </div>
               </div>
-              <div className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm text-muted-foreground">
-                What are you thinking?
-              </div>
-            </div>
+            )}
             
             {posts.map((post) => (
               <Card key={post.id} className="overflow-hidden">
@@ -230,41 +474,45 @@ const CompanyForum = () => {
                       <div className="flex items-center gap-1">
                         <button className="flex items-center gap-1 text-xs text-muted-foreground">
                           <MessageSquare className="h-4 w-4" />
-                          <span>{post.comments} comments</span>
+                          <span>{post.comments.length} comments</span>
                         </button>
                       </div>
                     </div>
                   </div>
                   
-                  {post.comments > 0 && (
+                  {post.comments.length > 0 && (
                     <Accordion type="single" collapsible className="border-t">
                       <AccordionItem value="comments" className="border-b-0">
                         <AccordionTrigger className="py-2 px-4 text-xs text-[#DA0630]">
-                          View comments
+                          View comments ({post.comments.length})
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-3">
                           <div className="space-y-3">
-                            <div className="flex gap-2">
-                              <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-                                <img 
-                                  src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=100"
-                                  alt="Commenter" 
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 bg-gray-50 rounded-lg p-2">
-                                <div className="flex justify-between items-start mb-1">
-                                  <h4 className="text-xs font-medium">Miguel Sanchez</h4>
-                                  <span className="text-xs text-muted-foreground">20 min</span>
+                            {/* Display existing comments */}
+                            {post.comments.map((comment) => (
+                              <div key={comment.id} className="flex gap-2">
+                                <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                                  <img 
+                                    src={comment.user.avatar}
+                                    alt={comment.user.name} 
+                                    className="w-full h-full object-cover"
+                                  />
                                 </div>
-                                <p className="text-xs">Excellent initiative! I participated last year and it was an incredible experience.</p>
+                                <div className="flex-1 bg-gray-50 rounded-lg p-2">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <h4 className="text-xs font-medium">{comment.user.name}</h4>
+                                    <span className="text-xs text-muted-foreground">{comment.timestamp}</span>
+                                  </div>
+                                  <p className="text-xs">{comment.content}</p>
+                                </div>
                               </div>
-                            </div>
+                            ))}
                             
+                            {/* Comment input form */}
                             <div className="flex items-center gap-2">
                               <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
                                 <img 
-                                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100"
+                                  src="/ian.jpeg"
                                   alt="User avatar" 
                                   className="w-full h-full object-cover"
                                 />
@@ -274,8 +522,14 @@ const CompanyForum = () => {
                                   type="text" 
                                   placeholder="Write a comment..." 
                                   className="w-full rounded-full text-xs bg-gray-100 px-4 py-2 pr-9 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                                  value={commentInputs[post.id] || ''}
+                                  onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                                  onKeyPress={(e) => handleKeyPress(e, post.id)}
                                 />
-                                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#DA0630]">
+                                <button 
+                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#DA0630]"
+                                  onClick={() => handleAddComment(post.id)}
+                                >
                                   <Send className="h-4 w-4" />
                                 </button>
                               </div>

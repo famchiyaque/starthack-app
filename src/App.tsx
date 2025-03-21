@@ -9,11 +9,13 @@ import SignIn from './pages/SignIn'
 
 // User Routes
 import Index2 from "./pages2/Index";
-import Points2 from "./pages2/Points";
 import Search2 from "./pages2/Search";
 import Community2 from "./pages2/Community";
+import Forum from "./pages2/CompanyForum";
 import Profile2 from "./pages2/Profile";
 import NotFound2 from "./pages2/NotFound";
+import Points from "./pages2/Points";
+import CouponDetail from "./components2/CouponDetail";
 import "./styles/MobileContainer.css";
 
 // Layouts
@@ -64,11 +66,14 @@ const App = () => (
             {/* User routes */}
             <Route path="/user" element={ <Navigate to="/user/feed" replace /> } />
             <Route path="user/feed" element={<MobileContainer><Index2 /></MobileContainer>} />
-            <Route path="user/points" element={<MobileContainer><Points2 /></MobileContainer>} />
+            <Route path="user/points" element={<Points/>} />
+            <Route path="user/coupon/:id" element={<CouponDetail />} />
             <Route path="user/search" element={<MobileContainer><Search2 /></MobileContainer>} />
             <Route path="user/community" element={<MobileContainer><Community2 /></MobileContainer>} />
+            <Route path="user/community/forum/:forumId" element={<MobileContainer><Forum /></MobileContainer>} />
             <Route path="user/user/profile" element={<MobileContainer><Profile2 /></MobileContainer>} />
             <Route path="user/user/*" element={<MobileContainer><NotFound2 /></MobileContainer>} />
+
             {/* End user routes */}
             
             <Route path="*" element={<NotFound />} />

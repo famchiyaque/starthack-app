@@ -86,7 +86,7 @@ const Profile = () => {
       id: 2,
       title: "Epic Sea Change For All",
       company: "Virgin Voyages",
-      description: "Virgin Voyages have teamed up with Virgin’s Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
+      description: "Virgin Voyages have teamed up with Virgin's Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
       imageUrl: "https://media.virginvoyages.com/https://www.virginvoyages.com/dam/jcr:44bfcae2-34ca-44f7-a27b-9e753bf16d8a/IMG-DEST-st-croix-Catamaran-Off-Coast-of-St-Croix-share-page-hero-v1-16x9.jpg",
       participants: 32,
       deadline: "Jul 15",
@@ -121,22 +121,22 @@ const Profile = () => {
           </div>
           <h1 className="text-xl font-bold">{user.name}</h1>
           <p className="text-sm text-muted-foreground mb-2">{user.email}</p>
-          <div className="inline-flex items-center gap-1 bg-[#DA0630]/10 text-[#DA0630] px-3 py-1 rounded-full text-xs font-medium">
+          <div className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-medium">
             <Star className="h-3 w-3" /> {user.level}
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-2 text-center">
         <div className="p-2 flex flex-col">
-          <div className="text-2xl font-bold text-[#DA0630] animate-float mb-2">{communityStats.totalProjects}</div>
+          <div className="text-2xl font-bold text-red-500 animate-float mb-2">{communityStats.totalProjects}</div>
           <div className="text-xs text-muted-foreground">Projects</div>
         </div>
         <div className="p-2 border-x border-border flex flex-col">
-          <div className="text-2xl font-bold text-[#DA0630] animate-float mb-2">{communityStats.totalPoints}</div>
+          <div className="text-2xl font-bold text-red-500 animate-float mb-2">{communityStats.totalPoints}</div>
           <div className="text-xs text-muted-foreground">Friends</div>
         </div>
         <div className="p-2 flex flex-col">
-          <div className="mt-2 text-md font-bold text-[#DA0630] animate-float mb-2">{communityStats.totalImpact}</div>
+          <div className="mt-2 text-md font-bold text-red-500 animate-float mb-2">{communityStats.totalImpact}</div>
           <div className="text-xs text-muted-foreground">Impact</div>
         </div>
       </div>
@@ -161,10 +161,10 @@ const Profile = () => {
                     <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#DA0630] font-medium">{project.company}</p>
+                    <p className="text-sm text-red-600 font-medium">{project.company}</p>
                     <h3 className="font-medium mb-1">{project.title}</h3>
                     <div className="w-full bg-gray-200 rounded-full h-1.5 mb-1">
-                      <div className="bg-[#DA0630] h-1.5 rounded-full" style={{ width: `${project.progress}%` }}></div>
+                      <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${project.progress}%` }}></div>
                     </div>
                     <div className="flex items-center text-xs text-muted-foreground">
                       <CheckCircle className="h-3 w-3 mr-1" />
@@ -173,13 +173,13 @@ const Profile = () => {
                   </div>
                 </div>
                 
-                <div className="bg-[#DA0630]/10 p-3 flex items-center justify-between">
+                <div className="bg-red-50 p-3 flex items-center justify-between">
                   <div className="flex items-center text-xs">
-                    <Clock className="h-3 w-3 mr-1 text-[#DA0630]" />
+                    <Clock className="h-3 w-3 mr-1 text-red-500" />
                     <span>{project.nextActivity}</span>
                   </div>
                   <div className="flex items-center text-xs font-medium">
-                    <Calendar className="h-3 w-3 mr-1 text-[#DA0630]" />
+                    <Calendar className="h-3 w-3 mr-1 text-red-500" />
                     <span>{project.nextDate}</span>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="mb-6">
-              <h2 className="section-title">Completed Projects</h2>
+              <h3 className="section-title">Completed Projects</h3>
               <div className="space-y-3">
                 {completedProjects.map((project) => (
                   <div key={project.id} className="bg-white rounded-xl border border-border p-4 flex items-center">
@@ -204,7 +204,7 @@ const Profile = () => {
                       <h3 className="text-sm font-medium">{project.title}</h3>
                     </div>
                     <div className="text-right">
-                      <div className="text-[#DA0630] font-medium">+{project.pointsEarned} pts</div>
+                      <div className="text-red-600 font-medium">+{project.pointsEarned} pts</div>
                       <div className="text-xs text-muted-foreground">{project.completionDate}</div>
                     </div>
                   </div>
@@ -217,4 +217,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile; 
