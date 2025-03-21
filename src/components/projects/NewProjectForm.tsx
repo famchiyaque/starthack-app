@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -58,10 +61,13 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const NewProjectForm: React.FC = () => {
+  const navigate = useNavigate()
   const [benefits, setBenefits] = useState<string[]>(['']);
   const [tasks, setTasks] = useState<string[]>(['joinCommunity']);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState<boolean>(false);
+
+  const { name, userType } = useAuth();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -145,13 +151,41 @@ const NewProjectForm: React.FC = () => {
     return task ? task.caption : "";
   };
 
-  const onSubmit = (data: FormValues) => {
-    const formData = {
-      ...data,
-      image: imageFile ? imageFile.name : null
-    };
-    console.log("Submitted:", formData);
+  const onSubmit = async (data: FormValues) => {
+    const formData = new FormData();
+  
+    // Append form fields
+    formData.append("name", name)
+    formData.append("initiative", data.initiative);
+    formData.append("callToAction", data.callToAction);
+    formData.append("category", data.category);
+    formData.append("endDate", data.endDate.toISOString());
+    formData.append("benefits", JSON.stringify(data.benefits)); // Convert array to JSON
+    formData.append("tasks", JSON.stringify(data.tasks)); // Convert array to JSON
+  
+    // Append image file if selected
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+  
+    try {
+      const response = await axios.post("/api/create-project", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      if (response.status === 200) {
+        console.log("Project created successfully!");
+        navigate('/company/projects')
+      } else {
+        console.error("Failed to create project");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
+  
 
   return (
     <div className="w-full max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-sm border">

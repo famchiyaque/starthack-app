@@ -34,6 +34,20 @@ async function getProjects(name) {
     }
 }
 
+async function getProject(id) {
+  try {
+      const [projects] = await pool.execute(`
+          SELECT * FROM Projects   
+          WHERE id = ?
+      `, [id])
+
+      // console.log("result of getproject query: ", projects)
+      return projects[0]
+  } catch (error) {
+      console.error(error)
+  }
+}
+
 async function signIn(name) {
   try {
     const [result] = await pool.execute(`
@@ -48,6 +62,56 @@ async function signIn(name) {
   }
 }
 
+async function getCompanyId(name) {
+  // console.log("name being passed to getCompanyId: ", name)
+
+  try { 
+    const [result] = await pool.execute(`
+      SELECT id FROM Users
+      WHERE name = ?  
+    `, [name])
+
+    return result[0].id
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function createProject(company_id, name, initiative, callToAction, image, category, endDate, benefits, tasks) {
+  try {
+    const query = `
+      INSERT INTO projects 
+        (company_id, company_name, initiative, call_to_action, image, categories, end_date, benefits, tasks, challenge, progress, links, created_at) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "", "0", "", NOW())
+    `;
+
+    const formattedEndDate = new Date(endDate).toISOString().slice(0, 19).replace('T', ' ');
+
+    const values = [
+      company_id, 
+      name,
+      initiative,
+      callToAction,
+      image,
+      JSON.stringify(category), // Convert category array to JSON string
+      formattedEndDate,
+      JSON.stringify(benefits), // Convert benefits array to JSON string
+      JSON.stringify(tasks) // Convert tasks array to JSON string
+    ];
+
+    // Execute the query
+    const [result] = await pool.execute(query, values);
+    
+    // console.log("Project created successfully, ID:", result.insertId);
+    return { success: true, projectId: result.insertId };
+  } catch (error) {
+    console.error("Error inserting project:", error);
+    throw error;
+  }
+}
+
+
+
 // Function to execute queries
 async function get(sql, params) {
   try {
@@ -61,4 +125,4 @@ async function get(sql, params) {
 
 // export default pool;
 
-export { getProjects, signIn };
+export { getProjects, signIn, createProject, getCompanyId, getProject };

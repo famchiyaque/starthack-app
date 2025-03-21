@@ -1,20 +1,19 @@
-
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Clock, MessageCircle, Bell, Plus } from 'lucide-react';
 import AnimatedTransition from '@/components/common/AnimatedTransition';
 import { useAuth } from "../context/AuthContext";
-import axios from 'axios'
+import axios from 'axios';
 
 const Projects = () => {
   const { name, userType } = useAuth();
-  const [projects, setProjects] = useState([])
-  console.log("name from auth: ", name)
+  const [projects, setProjects] = useState([]);
+  // console.log("name from auth: ", name);
 
   useEffect(() => {
-    console.log("about to call backend api for projects");
+    // console.log("about to call backend api for projects");
 
     axios.get('/api/get-projects', {
       params: {
@@ -24,11 +23,11 @@ const Projects = () => {
     .then(res => {
         console.log("Returned data:", res.data);
         setProjects(res.data);
+        console.log(res.data)
+        // console.log(`/uploads/${res.data.image}`);
     })
     .catch(error => console.error("Fetch error:", error));
-    
-    }, []);
-
+  }, [name]);
 
   return (
     <div className="space-y-6">
@@ -47,6 +46,11 @@ const Projects = () => {
           <AnimatedTransition key={project.id} type="fade" delay={index * 100}>
             <Link to={`/company/projects/${project.id}`} className="block group">
               <Card className="h-full transition-all duration-300 hover:shadow-md hover:border-primary/50">
+              {/* <img 
+                src={`/uploads/${project.image}`} 
+                alt={project.initiative} 
+                className="object-cover w-full h-full rounded-t-md"
+              /> */}
                 <CardHeader className="pb-2">
                   <CardTitle>{project.initiative}</CardTitle>
                   <CardDescription className="line-clamp-2">{project.call_to_action}</CardDescription>
@@ -55,7 +59,6 @@ const Projects = () => {
                   <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-primary transition-all" 
-                      // style={{ width: `${project.progress}%` }}
                       style={{ width: '75%' }}
                     />
                   </div>
@@ -69,10 +72,6 @@ const Projects = () => {
                     <Clock size={14} />
                     <span>
                       {project.created_at}
-                      {/* {project.updatedAt.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })} */}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">

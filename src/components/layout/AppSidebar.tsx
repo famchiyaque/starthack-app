@@ -67,8 +67,9 @@ const AppSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader className="p-4 flex justify-center">
-        <h1 className="text-xl font-bold text-primary">Orange Platform</h1>
+      <SidebarHeader className="p-4 flex justify-start flex-row ">
+        <img src={'/volty-icon-horiz.png'} width='100' />
+        {/* <h1 className="text-xl font-bold text-primary">Volty</h1> */}
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
