@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { getProjects, signIn, createProject, getCompanyId, getProject } from "./db.js";
+import { getProjects, signIn, createProject, getCompanyId, getProject, makeDatabase } from "./db.js";
 
 dotenv.config();
 
@@ -42,6 +42,8 @@ app.use(cors());
 app.use(express.json()); // JSON body parsing
 app.use(express.static("build")); // Serve frontend
 app.use("/uploads", express.static(uploadDirectory)); // Serve uploaded images
+
+makeDatabase()
 
 // Get projects
 app.get("/api/get-projects", async (req, res) => {
