@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Sidebar,
   SidebarContent,
@@ -41,6 +41,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
 
 const AppSidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate()
 
   const menuItems = [
     {
@@ -96,7 +97,7 @@ const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <div className="p-4">
-          <Button variant="outline" className="w-full flex items-center gap-2">
+          <Button variant="outline" className="w-full flex items-center gap-2" onClick={() => navigate('/sign-in')}>
             <LogOut className="h-4 w-4" />
             <span>Sign Out</span>
           </Button>

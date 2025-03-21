@@ -157,7 +157,7 @@ async function signIn(name) {
       WHERE name = ?
     `, [name])
 
-    console.log("result of siging in ", result)
+    // console.log("result of siging in ", result)
     return result
   } catch (e) {
     console.error(e)

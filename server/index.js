@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { getProjects, signIn, createProject, getCompanyId, getProject } from "./db.js";
+import { getProjects, signIn, createProject, getCompanyId, getProject, makeDatabase } from "./db.js";
 
 dotenv.config();
 
@@ -37,68 +37,68 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Database setup function
-async function setupDatabase() {
-    try {
-        // Define SQLite database path
-        const dbPath = path.join(__dirname, "../volty.db");
+// async function setupDatabase() {
+//     try {
+//         // Define SQLite database path
+//         const dbPath = path.join(__dirname, "../volty.db");
         
-        // Delete existing database file if it exists
-        if (fs.existsSync(dbPath)) {
-            fs.unlinkSync(dbPath);
-            console.log("Removed existing database file");
-        }
+//         // Delete existing database file if it exists
+//         if (fs.existsSync(dbPath)) {
+//             fs.unlinkSync(dbPath);
+//             console.log("Removed existing database file");
+//         }
         
-        // Read the SQL script
-        const dbScriptPath = path.join(__dirname, "../db_script.sql");
-        let sqlScript = fs.readFileSync(dbScriptPath, "utf8");
+//         // Read the SQL script
+//         const dbScriptPath = path.join(__dirname, "../db_script.sql");
+//         let sqlScript = fs.readFileSync(dbScriptPath, "utf8");
         
-        // Convert MySQL specific syntax to SQLite
-        sqlScript = sqlScript
-            // Replace MySQL CREATE DATABASE and USE statements
-            .replace(/CREATE DATABASE.*?;/gi, '')
-            .replace(/use.*?;/gi, '')
-            // Replace AUTO_INCREMENT with AUTOINCREMENT
-            .replace(/AUTO_INCREMENT/gi, 'AUTOINCREMENT')
-            // Replace ENUM type with TEXT
-            .replace(/ENUM\([^)]+\)/gi, 'TEXT')
-            // Replace TIMESTAMP type with DATETIME
-            .replace(/TIMESTAMP/gi, 'DATETIME')
-            // Replace CURRENT_TIMESTAMP with strftime
-            .replace(/CURRENT_TIMESTAMP/gi, "strftime('%Y-%m-%d %H:%M:%S', 'now')");
+//         // Convert MySQL specific syntax to SQLite
+//         sqlScript = sqlScript
+//             // Replace MySQL CREATE DATABASE and USE statements
+//             .replace(/CREATE DATABASE.*?;/gi, '')
+//             .replace(/use.*?;/gi, '')
+//             // Replace AUTO_INCREMENT with AUTOINCREMENT
+//             .replace(/AUTO_INCREMENT/gi, 'AUTOINCREMENT')
+//             // Replace ENUM type with TEXT
+//             .replace(/ENUM\([^)]+\)/gi, 'TEXT')
+//             // Replace TIMESTAMP type with DATETIME
+//             .replace(/TIMESTAMP/gi, 'DATETIME')
+//             // Replace CURRENT_TIMESTAMP with strftime
+//             .replace(/CURRENT_TIMESTAMP/gi, "strftime('%Y-%m-%d %H:%M:%S', 'now')");
         
-        // Split script into individual statements
-        const statements = sqlScript
-            .split(';')
-            .filter(statement => statement.trim() !== '')
-            .map(statement => statement.trim());
+//         // Split script into individual statements
+//         const statements = sqlScript
+//             .split(';')
+//             .filter(statement => statement.trim() !== '')
+//             .map(statement => statement.trim());
         
-        // Open SQLite database connection
-        const db = await open({
-            filename: dbPath,
-            driver: sqlite3.Database
-        });
+//         // Open SQLite database connection
+//         const db = await open({
+//             filename: dbPath,
+//             driver: sqlite3.Database
+//         });
         
-        console.log("Setting up SQLite database...");
+//         console.log("Setting up SQLite database...");
         
-        // Execute each statement
-        for (const statement of statements) {
-            try {
-                if (statement.trim()) {
-                    await db.exec(statement);
-                }
-            } catch (err) {
-                console.warn(`Warning: Error executing statement: ${err.message}`);
-                console.warn(`Statement: ${statement}`);
-                // Continue with next statement even if current one fails
-            }
-        }
+//         // Execute each statement
+//         for (const statement of statements) {
+//             try {
+//                 if (statement.trim()) {
+//                     await db.exec(statement);
+//                 }
+//             } catch (err) {
+//                 console.warn(`Warning: Error executing statement: ${err.message}`);
+//                 console.warn(`Statement: ${statement}`);
+//                 // Continue with next statement even if current one fails
+//             }
+//         }
         
-        console.log("SQLite database setup complete!");
-        await db.close();
-    } catch (error) {
-        console.error("Database setup failed:", error);
-    }
-}
+//         console.log("SQLite database setup complete!");
+//         await db.close();
+//     } catch (error) {
+//         console.error("Database setup failed:", error);
+//     }
+// }
 
 const app = express();
 const PORT = process.env.PORT || 5555;
@@ -195,9 +195,13 @@ app.get("/api/hello", (req, res) => {
 });
 
 // Run database setup before starting server
-setupDatabase().then(() => {
-    // Start server
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// setupDatabase().then(() => {
+//     // Start server
+//     app.listen(PORT, () => {
+//         console.log(`Server is running on http://localhost:${PORT}`);
+//     });
+// });

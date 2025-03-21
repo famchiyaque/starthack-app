@@ -1,7 +1,6 @@
 CREATE DATABASE Volty;
 use volty;
 
-select * from users;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -11,7 +10,6 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-select * from projects;
 CREATE TABLE projects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     company_id INT NOT NULL,

@@ -15,12 +15,14 @@ const MobileLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-background w-full max-w-md mx-auto">
-  <main className="flex-1 overflow-y-auto">
+    <div className="flex flex-col h-screen max-w-md mx-auto">
+    {/* // <div className="flex flex-col h-screen overflow-hidden bg-background w-full max-w-md mx-auto"> */}
+  {/* <main className="flex-1 overflow-y-auto"> */}
+  <main className="flex-1 pb-16">
     {children}
   </main>
 
-  <footer className="border-t bg-white">
+  <footer className="fixed bottom-0 max-w-md mx-auto w-full border-t bg-white">
     <nav className="flex justify-around">
           {navItems.map((item, index) => {
             const Icon = item.icon;
