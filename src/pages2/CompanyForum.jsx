@@ -142,7 +142,7 @@ const CompanyForum = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
             <div className="flex items-center gap-2 mb-1">
               <div className="bg-white p-1 rounded-full">
-                <Building className="h-4 w-4 text-orange-600" />
+                <Building className="h-4 w-4 text-[#DA0630]" />
               </div>
               <p className="text-white text-sm font-medium">{currentForum.company}</p>
             </div>
@@ -153,16 +153,16 @@ const CompanyForum = () => {
         <div className="bg-white rounded-xl border border-border p-4 mb-6">
           <div className="flex justify-between mb-3">
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-orange-500" />
+              <Users className="h-4 w-4 text-[#DA0630]" />
               <span className="text-sm font-medium">{currentForum.members} members</span>
             </div>
             <div className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-orange-500" />
+              <MessageSquare className="h-4 w-4 text-[#DA0630]" />
               <span className="text-sm font-medium">{currentForum.posts} posts</span>
             </div>
           </div>
           <p className="text-sm text-muted-foreground mb-4">{currentForum.description}</p>
-          <Button className="w-full bg-orange-500 text-white hover:bg-orange-600">
+          <Button className="w-full bg-[#DA0630] text-white hover:bg-[#DA0630]/90">
             Join Forum
           </Button>
         </div>
@@ -202,7 +202,7 @@ const CompanyForum = () => {
                       <div>
                         <div className="flex items-center gap-2">
                           <h3 className="text-sm font-medium">{post.user.name}</h3>
-                          <span className="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">{post.user.role}</span>
+                          <span className="text-xs bg-[#DA0630]/10 text-[#DA0630] px-2 py-0.5 rounded-full">{post.user.role}</span>
                         </div>
                         <p className="text-xs text-muted-foreground">{post.timestamp}</p>
                       </div>
@@ -222,7 +222,7 @@ const CompanyForum = () => {
                     
                     <div className="flex justify-between items-center border-t border-gray-100 pt-3">
                       <div className="flex items-center gap-1">
-                        <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-orange-500">
+                        <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-[#DA0630]">
                           <Heart className="h-4 w-4" />
                           <span>{post.likes}</span>
                         </button>
@@ -239,7 +239,7 @@ const CompanyForum = () => {
                   {post.comments > 0 && (
                     <Accordion type="single" collapsible className="border-t">
                       <AccordionItem value="comments" className="border-b-0">
-                        <AccordionTrigger className="py-2 px-4 text-xs text-orange-600">
+                        <AccordionTrigger className="py-2 px-4 text-xs text-[#DA0630]">
                           View comments
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-3">
@@ -275,7 +275,7 @@ const CompanyForum = () => {
                                   placeholder="Write a comment..." 
                                   className="w-full rounded-full text-xs bg-gray-100 px-4 py-2 pr-9 focus:outline-none focus:ring-1 focus:ring-orange-400"
                                 />
-                                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-orange-500">
+                                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#DA0630]">
                                   <Send className="h-4 w-4" />
                                 </button>
                               </div>
@@ -300,7 +300,7 @@ const CompanyForum = () => {
             <h2 className="text-sm font-medium mb-2">Active Projects ({currentForum.projects.length})</h2>
             
             {currentForum.projects.map((project) => (
-              <Card key={project.id} className="cursor-pointer hover:border-orange-300 transition-all">
+              <Card key={project.id} className="cursor-pointer hover:border-[#DA0630] transition-all">
                 <CardContent className="p-4">
                   <h3 className="font-medium text-sm mb-1">{project.title}</h3>
                   <div className="flex items-center justify-between text-xs">
@@ -308,14 +308,14 @@ const CompanyForum = () => {
                       <Users className="h-3.5 w-3.5" />
                       <span>{project.participants} participants</span>
                     </div>
-                    <div className="flex items-center gap-1 text-orange-600">
+                    <div className="flex items-center gap-1 text-[#DA0630]">
                       <Clock className="h-3.5 w-3.5" />
                       <span>In progress</span>
                     </div>
                   </div>
                   <div className="mt-3">
                     <Button 
-                      className="w-full bg-white text-orange-600 border border-orange-200 hover:bg-orange-50"
+                      className="w-full bg-white text-[#DA0630] border border-[#DA0630]/20 hover:bg-[#DA0630]/5"
                       size="sm"
                     >
                       View details

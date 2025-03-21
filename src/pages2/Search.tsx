@@ -17,12 +17,13 @@ const Search = () => {
       deadline: "Jun 23",
       rewards: "200 pts",
       category: "Environment",
+      // Si hay propiedades de color aquí, cambiarlas a #DA0630
     },
     {
       id: 2,
       title: "Epic Sea Change For All",
       company: "Virgin Voyages",
-      description: "Virgin Voyages have teamed up with Virgin’s Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
+      description: "Virgin Voyages have teamed up with Virgin's Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
       imageUrl: "https://media.virginvoyages.com/https://www.virginvoyages.com/dam/jcr:44bfcae2-34ca-44f7-a27b-9e753bf16d8a/IMG-DEST-st-croix-Catamaran-Off-Coast-of-St-Croix-share-page-hero-v1-16x9.jpg",
       participants: 32,
       deadline: "Jul 15",
@@ -72,16 +73,16 @@ const Search = () => {
   return (
     <MobileLayout>
       <div className="page-container">
-        <h1 className="section-title text-xl mb-4">Discover Projects</h1>
+        <h1 className="section-title text-xl mb-4 text-[#DA0630]">Discover Projects</h1>
         
         <div className="relative mb-4">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <SearchIcon className="h-4 w-4 text-muted-foreground" />
+            <SearchIcon className="h-4 w-4 text-[#DA0630]" />
           </div>
           <input
             type="text"
             placeholder="Search projects, companies..."
-            className="pl-10 pr-4 py-3 w-full rounded-xl bg-white border border-border focus:outline-none focus:ring-1 focus:ring-orange-300 transition-all"
+            className="pl-10 pr-4 py-3 w-full rounded-xl bg-white border border-[#f2a7b4] focus:outline-none focus:ring-1 focus:ring-[#DA0630] transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -94,8 +95,8 @@ const Search = () => {
                 key={category}
                 className={`whitespace-nowrap px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   activeCategory === category
-                    ? "bg-orange-500 text-white"
-                    : "bg-secondary text-secondary-foreground hover:bg-orange-100"
+                    ? "bg-[#DA0630] text-white"
+                    : "bg-[#fde8eb] text-[#DA0630] hover:bg-[#f9c1c9]"
                 }`}
                 onClick={() => setActiveCategory(category)}
               >
@@ -106,11 +107,11 @@ const Search = () => {
         </div>
         
         <div className="flex items-center justify-between mb-4">
-          <button className="flex items-center gap-1 text-sm text-muted-foreground">
+          <button className="flex items-center gap-1 text-sm text-[#DA0630]">
             <MapPin className="h-4 w-4" /> 
             <span>Near Me</span>
           </button>
-          <button className="flex items-center gap-1 text-sm text-muted-foreground">
+          <button className="flex items-center gap-1 text-sm text-[#DA0630]">
             <Filter className="h-4 w-4" /> 
             <span>Filters</span>
           </button>
@@ -129,11 +130,13 @@ const Search = () => {
                 deadline={project.deadline}
                 rewards={project.rewards}
                 category={project.category}
+                textColor="#DA0630" // Añadiendo esta prop para cambiar colores de texto en ProjectCard
+                accentColor="#DA0630" // Añadiendo esta prop para cambiar colores de acento en ProjectCard
               />
             ))
           ) : (
             <div className="text-center py-8">
-              <p className="text-muted-foreground">No projects found.</p>
+              <p className="text-[#DA0630]">No projects found.</p>
             </div>
           )}
         </div>

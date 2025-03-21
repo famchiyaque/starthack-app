@@ -21,7 +21,7 @@ const Index = () => {
       id: 2,
       title: "Epic Sea Change For All",
       company: "Virgin Voyages",
-      description: "Virgin Voyages have teamed up with Virgin’s Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
+      description: "Virgin Voyages have teamed up with Virgin's Foundation, Virgin Unite, to support mangrove forest projects in the Caribbean. The aim is to accelerate nature-based solutions to climate change, and create a scalable model for other regions in the world.",
       imageUrl: "https://media.virginvoyages.com/https://www.virginvoyages.com/dam/jcr:44bfcae2-34ca-44f7-a27b-9e753bf16d8a/IMG-DEST-st-croix-Catamaran-Off-Coast-of-St-Croix-share-page-hero-v1-16x9.jpg",
       participants: 32,
       deadline: "Jul 15",
@@ -74,7 +74,7 @@ const Index = () => {
           <div className="space-y-3">
             <div className="p-4 bg-white rounded-xl border border-border">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#DA0630]/10 flex items-center justify-center flex-shrink-0">
                   <img
                     src="/ian.jpeg"
                     alt="User"
@@ -84,7 +84,7 @@ const Index = () => {
                 <div>
                   <p className="text-sm">
                     <span className="font-medium">Ian H.</span> joined the project {" "}
-                    <span className="text-orange-600 font-medium">Youngest, Cleanest Fleet in the Sky</span>
+                    <span className="text-[#DA0630] font-medium">Youngest, Cleanest Fleet in the Sky</span>
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
                 </div>
@@ -93,7 +93,7 @@ const Index = () => {
             
             <div className="p-4 bg-white rounded-xl border border-border">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#DA0630]/10 flex items-center justify-center flex-shrink-0">
                   <img
                     src="/robert.jpeg"
                     alt="User"
@@ -103,7 +103,7 @@ const Index = () => {
                 <div>
                   <p className="text-sm">
                     <span className="font-medium">Roberto H.</span> completed an activity and earned {" "}
-                    <span className="text-orange-600 font-medium">50 points</span>
+                    <span className="text-[#DA0630] font-medium">50 points</span>
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
                 </div>

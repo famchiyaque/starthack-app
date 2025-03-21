@@ -43,57 +43,6 @@ const Community = () => {
     }
   ];
 
-  // Mock data for active and completed projects
-  const activeProjects = [
-    {
-      id: 1,
-      title: "San Carlos Beach Cleanup",
-      company: "EcoMundo",
-      imageUrl: "https://images.unsplash.com/photo-1618477462146-050d2757350d?q=80&w=1000",
-      progress: 70,
-      tasksDone: 3,
-      tasksTotal: 5,
-      nextActivity: "Collection Sunday 9:00 AM",
-      nextDate: "Jun 18",
-    },
-    {
-      id: 2,
-      title: "Food Collection",
-      company: "FoodShare",
-      imageUrl: "https://images.unsplash.com/photo-1593113598332-cd59a0c3a4be?q=80&w=1000",
-      progress: 40,
-      tasksDone: 2,
-      tasksTotal: 4,
-      nextActivity: "Distribution Wednesday 5:00 PM",
-      nextDate: "Jun 21",
-    }
-  ];
-  
-  const completedProjects = [
-    {
-      id: 3,
-      title: "Community Recycling Workshop",
-      company: "ArtEco",
-      imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000",
-      pointsEarned: 200,
-      completionDate: "May 2023",
-    },
-    {
-      id: 4,
-      title: "Conservation Marathon",
-      company: "RunForNature",
-      imageUrl: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1000",
-      pointsEarned: 350,
-      completionDate: "Apr 2023",
-    },
-  ];
-
-  const communityStats = {
-    totalProjects: 4,
-    totalPoints: 750,
-    totalImpact: "12 tons of CO₂ reduced",
-  };
-  
   const handleForumClick = (forumId) => {
     navigate(`/community/forum/${forumId}`);
   };
@@ -101,18 +50,14 @@ const Community = () => {
   return (
     <MobileLayout>
       <div className="page-container">
- 
-        
         <Tabs defaultValue="forums" className="w-full mb-6">
-     
-          
           <TabsContent value="forums" className="space-y-4">
             <h2 className="">Communities</h2>
             <div className="space-y-4">
               {companyForums.map((forum) => (
                 <Card 
                   key={forum.id} 
-                  className="cursor-pointer hover:border-orange-300 transition-all"
+                  className="cursor-pointer hover:border-[#DA0630] transition-all"
                   onClick={() => handleForumClick(forum.id)}
                 >
                   <CardHeader className="p-4 pb-3 flex flex-row gap-3 items-center">
@@ -124,7 +69,7 @@ const Community = () => {
                       />
                     </div>
                     <div>
-                      <p className="text-sm text-orange-600 font-medium flex items-center gap-1">
+                      <p className="text-sm text-[#DA0630] font-medium flex items-center gap-1">
                         <Building className="h-3.5 w-3.5" />
                         {forum.company}
                       </p>
@@ -135,11 +80,11 @@ const Community = () => {
                     <p className="text-xs text-muted-foreground mb-3">{forum.description}</p>
                     <div className="flex justify-between text-xs">
                       <div className="flex items-center gap-1">
-                        <Users className="h-3.5 w-3.5 text-orange-500" />
+                        <Users className="h-3.5 w-3.5 text-[#DA0630]" />
                         <span>{forum.members} members</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <MessageSquare className="h-3.5 w-3.5 text-orange-500" />
+                        <MessageSquare className="h-3.5 w-3.5 text-[#DA0630]" />
                         <span>{forum.posts} posts</span>
                       </div>
                     </div>
@@ -148,8 +93,6 @@ const Community = () => {
               ))}
             </div>
           </TabsContent>
-          
-
         </Tabs>
       </div>
     </MobileLayout>
