@@ -47,7 +47,7 @@ app.use("/uploads", express.static(uploadDirectory)); // Serve uploaded images
 app.get("/api/get-projects", async (req, res) => {
     try {
         const name = req.query.name;
-        console.log("Fetching projects for:", name);
+        // console.log("Fetching projects for:", name);
         const result = await getProjects(name);
         res.status(200).json(result);
     } catch (error) {
@@ -73,7 +73,7 @@ app.get("/api/get-project", async (req, res) => {
 app.get("/api/sign-in", async (req, res) => {
     try {
         const name = req.query.name;
-        console.log("User signing in:", name);
+        // console.log("User signing in:", name);
         const result = await signIn(name);
         res.status(200).json(result);
     } catch (error) {

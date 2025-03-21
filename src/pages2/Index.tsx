@@ -7,17 +7,6 @@ import ProjectCard from "@/components2/common/ProjectCard";
 
 const mockProjects = [
   {
-    id: "1",
-    title: "Ocean Cleanup Initiative",
-    company: "EcoSolutions",
-    description: "Join us in cleaning up beaches and protecting marine life from plastic pollution.",
-    imageUrl: "https://images.unsplash.com/photo-1621451651659-fd337f8fed41",
-    participants: 128,
-    deadline: "7 days left",
-    rewards: "250 points",
-    category: "Environment"
-  },
-  {
     id: "2",
     title: "Digital Literacy Workshop",
     company: "TechEd Foundation",
