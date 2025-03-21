@@ -25,6 +25,7 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
+import NewProject from "./pages/NewProject"; // Add import
 import Feed from "./pages/Feed";
 import Collaborators from "./pages/Collaborators";
 import Profile from "./pages/Profile";
@@ -53,6 +54,7 @@ const App = () => (
             {/* Company routes */}
             <Route path="/company" element={ <Navigate to="/company/projects" replace /> } />
             <Route path="company/projects" element={<SidebarLayout><Projects /></SidebarLayout>} />
+            <Route path="company/projects/new" element={<SidebarLayout><NewProject /></SidebarLayout>} /> {/* Add new route */}
             <Route path="company/projects/:projectId" element={<SidebarLayout><ProjectDetail /></SidebarLayout>} />
             <Route path="company/feed" element={<SidebarLayout><Feed /></SidebarLayout>} />
             <Route path="company/collaborators" element={<SidebarLayout><Collaborators /></SidebarLayout>} />

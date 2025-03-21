@@ -1,3 +1,4 @@
+
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ const Hero = () => {
             Participate in social initiatives and get exclusive benefits from your favorite brands.
           </p>
           <Link
-            to="/client/search"
+            to="/user/search"
             className="inline-flex items-center gap-1 bg-white text-[#DA0630] px-4 py-2 rounded-full text-sm font-medium hover:bg-[#fde8eb] transition-colors"
           >
             Discover projects
